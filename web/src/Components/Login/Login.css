@@ -1,0 +1,29 @@
+.rounded-xl {
+    border-bottom-left-radius: 0.8rem;
+    border-top-left-radius: 0.8rem;
+ }
+.word{
+    font-size: 15px;
+}
+.image{
+    width:400px;
+}
+.tinyFont{
+    font-size: 13px;
+}
+ @media all and (max-width:568px){
+    .rounded-xl{
+        border-bottom-left-radius: 0rem;
+        border-top-left-radius: 0rem;
+    }
+ }
+ @media all and (max-width:700px){
+     .word{
+         font-size: 9px
+     }
+ }
+ @media (orientation:landscape) and (max-width:700px){
+    .word{
+        font-size: 12px
+    }
+}
