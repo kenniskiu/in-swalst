@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon index.js"
+    "start": "nodemon index.js",
+    "ngrok": "ngrok"
   },
   "author": "",
   "license": "ISC",
@@ -15,6 +16,7 @@
     "express": "^4.18.1",
     "express-ws": "^5.0.2",
     "mysql": "^2.18.1",
+    "ngrok": "^4.3.1",
     "nodemon": "^2.0.19",
     "socket.io": "^4.5.1"
   }

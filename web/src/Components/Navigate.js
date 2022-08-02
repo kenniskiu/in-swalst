@@ -1,21 +1,37 @@
-import React,{useRef, useState} from "react";
+import React,{useEffect, useState} from "react";
 import './App.css'
 import img1 from './assets/maps.png'
 import SideNavigation from "./Navigation";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMobile,faPhoneVolume,faSearch} from "@fortawesome/free-solid-svg-icons";
+import axios from "axios";
 
 export const Navigate = () => {
-    const [active,setActive] = useState('off')
-    function buzzer(){
-      if(active==='off'){
-        fetch(`http://192.168.100.85/on`)
-        .then((response)=>console.log(response),setActive('on'))
+    async function stateInitial(){
+      const response = await axios.get("http://localhost:3001/getState/buzzer")
+      const state = response.data
+      console.log(state)
+      if(state===0){
+        setState(false)
       }
-      if(active==='on'){
-        fetch(`http://192.168.100.85/${active}`)
-        .then((response)=>console.log(response),setActive('off'))
+      else if(state===1){
+        setState(true)
       }
+      else{
+        console.log("Error occured")
+      }
+    }
+    const [state,setState] = useState()
+    useEffect(()=>{
+      stateInitial()
+      console.log(state,"State")
+    },[])
+    async function buzzer(){
+      const res = await axios.put("http://localhost:3001/changeState",{
+        outputName : "buzzer",
+        state : !state
+      }).then(setState(!state))
+      console.log(res)
     }   
   return (
     <div className="d-flex">

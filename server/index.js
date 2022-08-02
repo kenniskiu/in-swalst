@@ -151,6 +151,36 @@ function getUserID(req,resp){
         }
     })
 }
+function GetState(req,resp){
+    const outputName = req.params.id
+    db.query(`SELECT state from state where outputName = "${outputName}"`,
+    (err,result)=>{
+        if(err){
+            resp.send("Error occured")  
+        }
+        else{
+            resp.send((result[0].state).toString())
+        }
+    })
+}
+function ChangeState(req,resp){
+    const outputName = req.body.outputName
+    const state = Number(req.body.state)
+    console.log(state,outputName)
+    db.query(`UPDATE state set state = ${state} where outputName = "${outputName}"`,
+    (err,result)=>{
+        if(err){
+            resp.send("Error occured")
+            console.log(err)
+        }
+        else{
+            resp.send({
+                "buzzed" : true
+            })
+        }
+    }
+    )
+}
 app.post('/login',Login)
 app.post ('/register',Register)
 app.get("/history/:id",GetData)
@@ -159,6 +189,11 @@ app.post("/submit", PostData);
 app.get("/get", GetData);
 app.get("/availableUsername/:id",getUsername)
 app.get("/getUserID/:id",getUserID)
+app.get("/getState/:id",GetState)
+app.put("/changeState",ChangeState)
+app.get("/test",(req,resp)=>{
+    resp.send("Its working")
+})
 app.listen(3001,()=>{
     console.log("listening to 3001")
 });
